@@ -20,6 +20,12 @@ enum DieType: String, CaseIterable, Identifiable {
         return self
     }
     
+    var name: String {
+        var name = self.rawValue
+        name.removeFirst()
+        return name
+    }
+    
     var range: ClosedRange<Int> {
         switch self {
         case .d4: return 1...4

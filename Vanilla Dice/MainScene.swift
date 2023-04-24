@@ -137,7 +137,7 @@ struct MainScene: View {
                 .foregroundColor(lightColor)
                 .frame(width: 48, height: 48)
                 .overlay {
-                    Text(dieType.rawValue)
+                    Text(dieType.name)
                         .fontWeight(.medium)
                         .foregroundColor(darkColor)
                 }

@@ -17,7 +17,7 @@ class DieShapeNode: SKShapeNode {
     
     init(dieType: DieType, color: UIColor, fontColor: UIColor = .white) {
         self.dieType = dieType
-        label = SKLabelNode(text: dieType.rawValue)
+        label = SKLabelNode(text: dieType.name)
         shadowShape = SKShapeNode()
         shadow = SKNode()
         super.init()
@@ -71,7 +71,7 @@ class DieShapeNode: SKShapeNode {
             if Date().timeIntervalSince(lastRollDate) > 0.05 {
                 label.alpha = 0.9
                 label.text = randomNumber(range: dieType.range)
-                VibrationManager.shared.vibrate(style: .light, intensity: 0.5)
+                VibrationManager.shared.vibrate(style: .light, intensity: 0.75)
                 lastRollDate = Date()
             }
         } else {
