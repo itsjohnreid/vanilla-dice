@@ -27,6 +27,7 @@ class DieShapeNode: SKShapeNode {
         lineWidth = 16
         fillColor = color
         strokeColor = color
+        lineJoin = .round
         
         // Physics
         physicsBody = SKPhysicsBody(polygonFrom: dieType.path())
@@ -56,6 +57,7 @@ class DieShapeNode: SKShapeNode {
         shadowShape.fillColor = .black
         shadowShape.strokeColor = .black
         shadowShape.lineWidth = 0
+        shadowShape.lineJoin = .round
         shadowShape.alpha = 0.2
         shadowShape.position = CGPoint(x: 16, y: -24)
         shadow.addChild(shadowShape)

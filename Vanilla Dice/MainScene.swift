@@ -83,7 +83,7 @@ struct MainScene: View {
             .foregroundColor(darkColor)
             .padding(8)
             .background(lightColor.opacity(0.7))
-            .cornerRadius(16)
+            .cornerRadius(32)
     }
     
     private var settingsButton: some View {
