@@ -17,7 +17,7 @@ class DieShapeNode: SKShapeNode {
     
     init(dieType: DieType, color: UIColor, fontColor: UIColor = .white) {
         self.dieType = dieType
-        label = SKLabelNode(text: dieType.name)
+        label = SKLabelNode(text: " " + dieType.name + " ")
         shadowShape = SKShapeNode()
         shadow = SKNode()
         super.init()
