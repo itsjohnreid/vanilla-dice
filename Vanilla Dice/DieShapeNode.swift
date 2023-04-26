@@ -9,17 +9,19 @@ import SpriteKit
 
 class DieShapeNode: SKShapeNode {
     let label: SKLabelNode
+    let color: UIColor
+    let dieType: DieType
     private let shadow: SKNode
     private let shadowShape: SKShapeNode
-    private let dieType: DieType
     private var lastRollDate = Date()
     var isRolling = false
     
-    init(dieType: DieType, color: UIColor, fontColor: UIColor = .white) {
+    init(dieType: DieType, color: UIColor) {
         self.dieType = dieType
         label = SKLabelNode(text: " " + dieType.name + " ")
         shadowShape = SKShapeNode()
         shadow = SKNode()
+        self.color = color
         super.init()
         
         // Drawing
@@ -37,15 +39,15 @@ class DieShapeNode: SKShapeNode {
         physicsBody?.restitution = 1
         physicsBody?.categoryBitMask = 1
         physicsBody?.contactTestBitMask = 1
-        physicsBody?.linearDamping = 6
-        physicsBody?.angularDamping = 6
+        physicsBody?.linearDamping = 5
+        physicsBody?.angularDamping = 3.5
         
         // Set up label
         label.verticalAlignmentMode = .center
         label.horizontalAlignmentMode = .center
         label.fontName = "Avenir-Heavy"
         label.fontSize = 72
-        label.fontColor = fontColor
+        label.fontColor = idealTextColor(for: color)
         label.alpha = 0.2
         addChild(label)
         

@@ -16,6 +16,7 @@
 		52E8465029ED2936005A687F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52E8464F29ED2936005A687F /* Preview Assets.xcassets */; };
 		52E8465729EE7B7F005A687F /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E8465629EE7B7F005A687F /* Utils.swift */; };
 		52E8465929EF870A005A687F /* DieShapeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E8465829EF870A005A687F /* DieShapeNode.swift */; };
+		52F17F1C29F7BBE500491606 /* ColorSkin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F17F1B29F7BBE500491606 /* ColorSkin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		52E8464F29ED2936005A687F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		52E8465629EE7B7F005A687F /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		52E8465829EF870A005A687F /* DieShapeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DieShapeNode.swift; sourceTree = "<group>"; };
+		52F17F1B29F7BBE500491606 /* ColorSkin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSkin.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				52E8465629EE7B7F005A687F /* Utils.swift */,
 				52935BB029F263EA00EE98B0 /* VibrationManager.swift */,
 				52E8464C29ED2936005A687F /* Assets.xcassets */,
+				52F17F1B29F7BBE500491606 /* ColorSkin.swift */,
 				52E8464E29ED2936005A687F /* Preview Content */,
 			);
 			path = "Vanilla Dice";
@@ -158,6 +161,7 @@
 				52E8465929EF870A005A687F /* DieShapeNode.swift in Sources */,
 				52935BB729F3D54000EE98B0 /* DieType.swift in Sources */,
 				52E8465729EE7B7F005A687F /* Utils.swift in Sources */,
+				52F17F1C29F7BBE500491606 /* ColorSkin.swift in Sources */,
 				52935BB129F263EA00EE98B0 /* VibrationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
