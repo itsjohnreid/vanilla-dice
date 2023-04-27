@@ -14,49 +14,77 @@ struct MainScene: View {
     private var colorSkin = ColorSkin.vanilla
     private var lightColor: Color { Color(colorSkin.fillColor) }
     private var darkColor: Color { Color(colorSkin.borderColor) }
+    
     @State private var dieNodes: [DieShapeNode] = []
     @State private var size: CGSize = CGSize(width: 100, height: 100)
     @State private var wipeOpacity: Double = 0
     @State private var rollTotal: Int = 0
     
+    private var addDieButtonWidth: CGFloat {
+        min(size.width / 16, 48)
+    }
+    
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
-                SpriteView(
-                    scene: skScene,
-                    options: .ignoresSiblingOrder
-                )
-                .frame(width: geometry.size.width, height: geometry.size.height - trayHeight)
-                .cornerRadius(32)
-                .overlay {
-                    buttonOverlay
-                }
-                .overlay {
-                    wipeOverlay
-                }
+                spriteView
+                    .frame(width: geometry.size.width, height: geometry.size.height - trayHeight)
                 dicePalette
             }
             .onAppear {
-                size = CGSize(width: geometry.size.width * 2, height: (geometry.size.height - trayHeight) * 2)
-                skScene.size = size
+                updateSize(geometry.size)
                 skScene.trayDisplayDelegate = self
+            }
+            .onChange(of: geometry.size) { newSize in
+                updateSize(newSize)
+                skScene.updateBounds()
+                skScene.respawnDice()
             }
         }
         .background(darkColor)
         .preferredColorScheme(.dark)
     }
     
+    private var spriteView: some View {
+        SpriteView(
+            scene: skScene,
+            options: .ignoresSiblingOrder
+        )
+        .cornerRadius(32)
+        .overlay {
+            buttonOverlay
+        }
+        .overlay {
+            wipeOverlay
+        }
+    }
+    
     private var buttonOverlay: some View {
         VStack(spacing: 0) {
             Spacer()
             HStack(alignment: .bottom) {
-                refreshButton
+                settingsButton
                 Spacer()
                 rollTotalView
                 Spacer()
-                settingsButton
+                refreshButton
             }
             .padding(8)
+        }
+    }
+    
+    private var settingsButton: some View {
+        Button {
+            // Open settings
+        } label: {
+            Image(systemName: "gearshape")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 32, height: 32)
+                .foregroundColor(darkColor)
+                .padding(8)
+                .background(lightColor.opacity(0.5))
+                .clipShape(Circle())
         }
     }
     
@@ -90,21 +118,6 @@ struct MainScene: View {
             .cornerRadius(32)
     }
     
-    private var settingsButton: some View {
-        Button {
-            // Open settings
-        } label: {
-            Image(systemName: "gearshape")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 32, height: 32)
-                .foregroundColor(darkColor)
-                .padding(8)
-                .background(lightColor.opacity(0.5))
-                .clipShape(Circle())
-        }
-    }
-    
     private var wipeOverlay: some View {
         Rectangle()
             .frame(width: size.width, height: size.height)
@@ -114,22 +127,14 @@ struct MainScene: View {
     }
     
     private var dicePalette: some View {
-        ScrollViewReader { proxy in
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .center, spacing: 4) {
-                    ForEach(DieType.allCases) { dieType in
-                        addDieButton(dieType: dieType)
-                    }
-                }
-                .padding(.horizontal, 36)
-                .padding(.top, 12)
-                .padding(.bottom, 16)
-                .id("hStack")
-            }
-            .onAppear {
-                proxy.scrollTo("hStack", anchor: .center)
+        HStack(alignment: .center, spacing: 4) {
+            ForEach(DieType.allCases) { dieType in
+                addDieButton(dieType: dieType)
             }
         }
+        .padding(.top, 12)
+        .padding(.bottom, 16)
+        .id("hStack")
     }
     
     private func addDieButton(dieType: DieType) -> some View {
@@ -139,8 +144,8 @@ struct MainScene: View {
         } label: {
             Circle()
                 .foregroundColor(lightColor)
-                .frame(width: 48, height: 48)
-                .shadow(radius: 6)
+                .frame(width: addDieButtonWidth, height: addDieButtonWidth)
+//                .shadow(radius: 1)
                 .overlay {
                     Text(dieType.name)
                         .font(.title3)
@@ -164,6 +169,11 @@ struct MainScene: View {
                     .offset(y: 12)
             }
         }
+    }
+    
+    private func updateSize(_ newSize: CGSize) {
+        size = CGSize(width: newSize.width * 2, height: (newSize.height - trayHeight) * 2)
+        skScene.size = size
     }
 }
 

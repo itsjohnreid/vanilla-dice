@@ -36,14 +36,15 @@ class DiceTraySKScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         physicsWorld.contactDelegate = self
-        motionManager.startAccelerometerUpdates()
         backgroundColor = colorSkin.fillColor
+        motionManager.startAccelerometerUpdates()
+        updateBounds()
         
-        let sceneEdge = SKPhysicsBody(edgeLoopFrom: frame)
-        sceneEdge.restitution = 1
-        sceneEdge.categoryBitMask = 1
-        physicsBody = sceneEdge
-               
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        view.addGestureRecognizer(tapGesture)
+        view.addGestureRecognizer(swipeGesture)
+        
         addDie(.d20)
     }
     
@@ -64,8 +65,45 @@ class DiceTraySKScene: SKScene, SKPhysicsContactDelegate {
         trayDisplayDelegate?.displayTotal(value: rollTotal)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        rollDice()
+    @objc func handleTap(_ gesture: UITapGestureRecognizer) {
+        // Disabling taps for now. Pending user testing.
+//        rollDice()
+    }
+    
+    @objc func handleSwipe(_ sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .ended:
+            let translation = sender.translation(in: view)
+            let angle = atan2(translation.y, translation.x)
+            rollDice(angle: angle)
+        default: break
+        }
+    }
+    
+    func updateBounds() {
+        let topBoxRect = CGRect(x: -frame.width / 2, y: frame.height, width: frame.width * 2, height: 600)
+        let bottomBoxRect = CGRect(x: -frame.width / 2, y: -600, width: frame.width * 2, height: 600)
+        let leftBoxRect = CGRect(x: -600, y: -frame.height / 2, width: 600, height: frame.height * 2)
+        let rightBoxRect = CGRect(x: frame.width, y: -frame.height / 2, width: 600, height: frame.height * 2)
+        
+        let topBox = SKPhysicsBody(rectangleOf: topBoxRect.size, center: .init(x: topBoxRect.midX, y: topBoxRect.midY))
+        let bottomBox = SKPhysicsBody(rectangleOf: bottomBoxRect.size, center: .init(x: bottomBoxRect.midX, y: bottomBoxRect.midY))
+        let leftBox = SKPhysicsBody(rectangleOf: leftBoxRect.size, center: .init(x: leftBoxRect.midX, y: leftBoxRect.midY))
+        let rightBox = SKPhysicsBody(rectangleOf: rightBoxRect.size, center: .init(x: rightBoxRect.midX, y: rightBoxRect.midY))
+        
+        let sceneEdge = SKPhysicsBody(bodies: [topBox, bottomBox, leftBox, rightBox])
+        
+        sceneEdge.restitution = 1
+        sceneEdge.categoryBitMask = 1
+        sceneEdge.usesPreciseCollisionDetection = true
+        sceneEdge.isDynamic = false
+        physicsBody = sceneEdge
+    }
+    
+    func respawnDice() {
+        dieNodes.forEach { dieNode in
+            dieNode.position = spawnPoint
+        }
     }
     
     // Handle physics contact events
@@ -97,9 +135,9 @@ class DiceTraySKScene: SKScene, SKPhysicsContactDelegate {
         addChild(node)
     }
     
-    func rollDice() {
+    func rollDice(angle: CGFloat? = nil) {
         dieNodes.forEach { dieNode in
-            dieNode.roll()
+            dieNode.roll(angle: angle)
         }
     }
 }

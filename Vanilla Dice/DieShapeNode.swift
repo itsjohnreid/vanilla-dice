@@ -85,10 +85,10 @@ class DieShapeNode: SKShapeNode {
         shadowShape.zRotation = zRotation
     }
     
-    func roll() {
-        let angle = CGFloat.random(in: 0...(.pi * 2))
-        let dx = cos(angle) * 400
-        let dy = sin(angle) * 400
+    func roll(angle: CGFloat? = nil) {
+        let randomAngle = CGFloat.random(in: 0...(.pi * 2))
+        let dx = cos(angle ?? randomAngle) * 500
+        let dy = sin(angle ?? randomAngle) * 500 * -1 // Gotta invert this for some reason
         
         physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
         physicsBody?.applyAngularImpulse(0.5)
