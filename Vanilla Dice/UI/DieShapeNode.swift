@@ -9,12 +9,12 @@ import SpriteKit
 
 class DieShapeNode: SKShapeNode {
     let label: SKLabelNode
-    let color: UIColor
     let dieType: DieType
+    var isRolling = false
     private let shadow: SKNode
     private let shadowShape: SKShapeNode
     private var lastRollDate = Date()
-    var isRolling = false
+    private(set) var color: UIColor
     
     init(dieType: DieType, color: UIColor) {
         self.dieType = dieType
@@ -93,6 +93,12 @@ class DieShapeNode: SKShapeNode {
         physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
         physicsBody?.applyAngularImpulse(0.5)
         isRolling = true
+    }
+    
+    func setColor(color: UIColor) {
+        self.color = color
+        fillColor = color
+        strokeColor = color
     }
     
     required init?(coder aDecoder: NSCoder) {

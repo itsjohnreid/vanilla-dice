@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		521D5F0B29FA4F610072EE6C /* SettingsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521D5F0A29FA4F610072EE6C /* SettingsScene.swift */; };
+		523F83DE2A20DEE80099F01C /* Color+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523F83DD2A20DEE80099F01C /* Color+Utils.swift */; };
+		523F83E22A20ED4C0099F01C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523F83E12A20ED4C0099F01C /* Settings.swift */; };
+		523F83E42A20EEFC0099F01C /* SkinCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523F83E32A20EEFC0099F01C /* SkinCarousel.swift */; };
+		523F83E62A2462790099F01C /* MainScene.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523F83E52A2462790099F01C /* MainScene.ViewModel.swift */; };
+		523F83E82A2468170099F01C /* NavigationConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523F83E72A2468170099F01C /* NavigationConfigurator.swift */; };
 		52935BAF29F12E0B00EE98B0 /* DiceTraySKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52935BAE29F12E0B00EE98B0 /* DiceTraySKScene.swift */; };
 		52935BB129F263EA00EE98B0 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52935BB029F263EA00EE98B0 /* VibrationManager.swift */; };
 		52935BB729F3D54000EE98B0 /* DieType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52935BB629F3D54000EE98B0 /* DieType.swift */; };
@@ -16,10 +22,16 @@
 		52E8465029ED2936005A687F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52E8464F29ED2936005A687F /* Preview Assets.xcassets */; };
 		52E8465729EE7B7F005A687F /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E8465629EE7B7F005A687F /* Utils.swift */; };
 		52E8465929EF870A005A687F /* DieShapeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E8465829EF870A005A687F /* DieShapeNode.swift */; };
-		52F17F1C29F7BBE500491606 /* ColorSkin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F17F1B29F7BBE500491606 /* ColorSkin.swift */; };
+		52F17F1C29F7BBE500491606 /* Skin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F17F1B29F7BBE500491606 /* Skin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		521D5F0A29FA4F610072EE6C /* SettingsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScene.swift; sourceTree = "<group>"; };
+		523F83DD2A20DEE80099F01C /* Color+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Utils.swift"; sourceTree = "<group>"; };
+		523F83E12A20ED4C0099F01C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		523F83E32A20EEFC0099F01C /* SkinCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinCarousel.swift; sourceTree = "<group>"; };
+		523F83E52A2462790099F01C /* MainScene.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScene.ViewModel.swift; sourceTree = "<group>"; };
+		523F83E72A2468170099F01C /* NavigationConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationConfigurator.swift; sourceTree = "<group>"; };
 		52935BAE29F12E0B00EE98B0 /* DiceTraySKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceTraySKScene.swift; sourceTree = "<group>"; };
 		52935BB029F263EA00EE98B0 /* VibrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrationManager.swift; sourceTree = "<group>"; };
 		52935BB629F3D54000EE98B0 /* DieType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DieType.swift; sourceTree = "<group>"; };
@@ -30,7 +42,7 @@
 		52E8464F29ED2936005A687F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		52E8465629EE7B7F005A687F /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		52E8465829EF870A005A687F /* DieShapeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DieShapeNode.swift; sourceTree = "<group>"; };
-		52F17F1B29F7BBE500491606 /* ColorSkin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSkin.swift; sourceTree = "<group>"; };
+		52F17F1B29F7BBE500491606 /* Skin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skin.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +56,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		523F83DF2A20EC5D0099F01C /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				52935BAE29F12E0B00EE98B0 /* DiceTraySKScene.swift */,
+				52E8465829EF870A005A687F /* DieShapeNode.swift */,
+				52E8464A29ED2936005A687F /* MainScene.swift */,
+				521D5F0A29FA4F610072EE6C /* SettingsScene.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		52E8463C29ED2935005A687F = {
 			isa = PBXGroup;
 			children = (
@@ -63,16 +86,19 @@
 		52E8464729ED2936005A687F /* Vanilla Dice */ = {
 			isa = PBXGroup;
 			children = (
-				52E8464A29ED2936005A687F /* MainScene.swift */,
-				52935BAE29F12E0B00EE98B0 /* DiceTraySKScene.swift */,
-				52E8465829EF870A005A687F /* DieShapeNode.swift */,
+				523F83DD2A20DEE80099F01C /* Color+Utils.swift */,
 				52935BB629F3D54000EE98B0 /* DieType.swift */,
 				52E8464829ED2936005A687F /* MainApp.swift */,
+				523F83E52A2462790099F01C /* MainScene.ViewModel.swift */,
+				523F83E72A2468170099F01C /* NavigationConfigurator.swift */,
+				523F83E12A20ED4C0099F01C /* Settings.swift */,
+				52F17F1B29F7BBE500491606 /* Skin.swift */,
+				523F83E32A20EEFC0099F01C /* SkinCarousel.swift */,
 				52E8465629EE7B7F005A687F /* Utils.swift */,
 				52935BB029F263EA00EE98B0 /* VibrationManager.swift */,
 				52E8464C29ED2936005A687F /* Assets.xcassets */,
-				52F17F1B29F7BBE500491606 /* ColorSkin.swift */,
 				52E8464E29ED2936005A687F /* Preview Content */,
+				523F83DF2A20EC5D0099F01C /* UI */,
 			);
 			path = "Vanilla Dice";
 			sourceTree = "<group>";
@@ -155,13 +181,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				523F83E62A2462790099F01C /* MainScene.ViewModel.swift in Sources */,
 				52E8464B29ED2936005A687F /* MainScene.swift in Sources */,
+				523F83DE2A20DEE80099F01C /* Color+Utils.swift in Sources */,
 				52935BAF29F12E0B00EE98B0 /* DiceTraySKScene.swift in Sources */,
 				52E8464929ED2936005A687F /* MainApp.swift in Sources */,
 				52E8465929EF870A005A687F /* DieShapeNode.swift in Sources */,
 				52935BB729F3D54000EE98B0 /* DieType.swift in Sources */,
 				52E8465729EE7B7F005A687F /* Utils.swift in Sources */,
-				52F17F1C29F7BBE500491606 /* ColorSkin.swift in Sources */,
+				521D5F0B29FA4F610072EE6C /* SettingsScene.swift in Sources */,
+				523F83E42A20EEFC0099F01C /* SkinCarousel.swift in Sources */,
+				52F17F1C29F7BBE500491606 /* Skin.swift in Sources */,
+				523F83E22A20ED4C0099F01C /* Settings.swift in Sources */,
+				523F83E82A2468170099F01C /* NavigationConfigurator.swift in Sources */,
 				52935BB129F263EA00EE98B0 /* VibrationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

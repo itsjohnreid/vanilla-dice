@@ -11,8 +11,9 @@ import UIKit
 
 class DiceTraySKScene: SKScene, SKPhysicsContactDelegate {
     private let motionManager = CMMotionManager()
-    private var colorSkin = ColorSkin.vanilla
+    private var skin: Skin { Skin.preference }
     private var lastShakeDate = Date()
+    private var lastColor: UIColor?
     private var dieNodes: [DieShapeNode] = []
     private var spawnPoint: CGPoint {
         CGPoint(x: size.width / 2, y: size.height / 2)
@@ -36,7 +37,7 @@ class DiceTraySKScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         physicsWorld.contactDelegate = self
-        backgroundColor = colorSkin.fillColor
+        backgroundColor = skin.lightColor
         motionManager.startAccelerometerUpdates()
         updateBounds()
         
@@ -66,7 +67,7 @@ class DiceTraySKScene: SKScene, SKPhysicsContactDelegate {
     }
     
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
-        // Disabling taps for now. Pending user testing.
+        // TODO: Setting
 //        rollDice()
     }
     
@@ -118,16 +119,7 @@ class DiceTraySKScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func addDie(_ dieType: DieType) {
-        // Cycle through the colors in the skin
-        var color: UIColor?
-        if let lastColor = dieNodes.last?.color {
-            let index = (colorSkin.diceColors.firstIndex(of: lastColor) ?? 0) + 1
-            color = index < colorSkin.diceColors.endIndex ? colorSkin.diceColors[index] : colorSkin.diceColors.first
-        } else {
-            color = colorSkin.diceColors.randomElement()
-        }
-        
-        let node = DieShapeNode(dieType: dieType, color: color ?? .black)
+        let node = DieShapeNode(dieType: dieType, color: nextColor)
         node.position = spawnPoint
         node.zRotation = CGFloat.random(in: 0...CGFloat.pi * 2)
         dieNodes.append(node)
@@ -135,9 +127,32 @@ class DiceTraySKScene: SKScene, SKPhysicsContactDelegate {
         addChild(node)
     }
     
+    // Cycle through the colors in the skin
+    var nextColor: UIColor {
+        var color: UIColor?
+        if let lastColor = lastColor {
+            let index = (skin.diceColors.firstIndex(of: lastColor) ?? 0) + 1
+            color = index < skin.diceColors.endIndex ? skin.diceColors[index] : skin.diceColors.first
+        } else {
+            color = skin.diceColors.randomElement()
+        }
+        
+        lastColor = color
+        return color ?? skin.darkColor
+    }
+    
     func rollDice(angle: CGFloat? = nil) {
+        guard dieNodes.count > 0 else { return }
         dieNodes.forEach { dieNode in
             dieNode.roll(angle: angle)
+        }
+        trayDisplayDelegate?.shook()
+    }
+    
+    func refreshSkin() {
+        backgroundColor = skin.lightColor
+        dieNodes.forEach { dieNode in
+            dieNode.setColor(color: nextColor)
         }
     }
 }
@@ -145,4 +160,5 @@ class DiceTraySKScene: SKScene, SKPhysicsContactDelegate {
 protocol TrayDisplayDelegate {
     func displayTotal(value: Int)
     func dieNodesUpdated(dieNodes: [DieShapeNode])
+    func shook()
 }

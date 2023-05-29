@@ -9,9 +9,19 @@ import SwiftUI
 
 @main
 struct MainApp: App {
+    @StateObject var skinPreference = SkinPreference()
     var body: some Scene {
         WindowGroup {
-            MainScene()
+            NavigationView {
+                MainScene()
+                    .background {
+                        NavigationConfigurator { nc in
+                            nc.navigationBar.barTintColor = skinPreference.skin.darkColor
+                            nc.navigationBar.isTranslucent = false
+                        }
+                    }
+            }
+            .environmentObject(skinPreference)
         }
     }
 }

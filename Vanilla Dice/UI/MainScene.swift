@@ -9,14 +9,16 @@ import SpriteKit
 import SwiftUI
 
 struct MainScene: View {
+    @EnvironmentObject var skinPreference: SkinPreference
     private let trayHeight: CGFloat = 68
-    private let skScene = DiceTraySKScene(size: CGSize(width: 100, height: 100))
-    private var colorSkin = ColorSkin.vanilla
-    private var lightColor: Color { Color(colorSkin.fillColor) }
-    private var darkColor: Color { Color(colorSkin.borderColor) }
+    private var lightColor: Color { Color(skinPreference.skin.lightColor) }
+    private var darkColor: Color { Color(skinPreference.skin.darkColor) }
+    
+    @StateObject var viewModel = ViewModel()
     
     @State private var dieNodes: [DieShapeNode] = []
     @State private var size: CGSize = CGSize(width: 100, height: 100)
+    @State private var tutorialOpacity: Double = 1
     @State private var wipeOpacity: Double = 0
     @State private var rollTotal: Int = 0
     
@@ -33,30 +35,51 @@ struct MainScene: View {
             }
             .onAppear {
                 updateSize(geometry.size)
-                skScene.trayDisplayDelegate = self
+                viewModel.skScene.trayDisplayDelegate = self
             }
             .onChange(of: geometry.size) { newSize in
                 updateSize(newSize)
-                skScene.updateBounds()
-                skScene.respawnDice()
+                viewModel.skScene.updateBounds()
+                viewModel.skScene.respawnDice()
             }
         }
         .background(darkColor)
         .preferredColorScheme(.dark)
+        .onChange(of: skinPreference.skin) { newValue in
+            viewModel.skScene.refreshSkin()
+        }
     }
     
     private var spriteView: some View {
         SpriteView(
-            scene: skScene,
-            options: .ignoresSiblingOrder
+            scene: viewModel.skScene,
+            options: [.ignoresSiblingOrder, .shouldCullNonVisibleNodes]
         )
         .cornerRadius(32)
+        .overlay {
+            tutorialOverlay
+        }
         .overlay {
             buttonOverlay
         }
         .overlay {
             wipeOverlay
         }
+    }
+    
+    private var tutorialOverlay: some View {
+        VStack {
+            Text("Shake or swipe!")
+                .font(.title3)
+                .fontWeight(.semibold)
+                .foregroundColor(darkColor)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(lightColor.opacity(0.5))
+                .cornerRadius(32)
+                .offset(y: -size.height / 8)
+        }
+        .opacity(tutorialOpacity)
     }
     
     private var buttonOverlay: some View {
@@ -74,17 +97,15 @@ struct MainScene: View {
     }
     
     private var settingsButton: some View {
-        Button {
-            // Open settings
-        } label: {
-            Image(systemName: "gearshape")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 32, height: 32)
-                .foregroundColor(darkColor)
-                .padding(8)
-                .background(lightColor.opacity(0.5))
-                .clipShape(Circle())
+        NavigationLink(destination: SettingsScene()) {
+                Image(systemName: "gearshape")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 32, height: 32)
+                    .foregroundColor(darkColor)
+                    .padding(8)
+                    .background(lightColor.opacity(0.5))
+                    .clipShape(Circle())
         }
     }
     
@@ -92,7 +113,7 @@ struct MainScene: View {
         Button {
             UIImpactFeedbackGenerator(style: .soft).impactOccurred()
             wipeOpacity = 1
-            skScene.clearDice()
+            viewModel.skScene.clearDice()
             withAnimation {
                 wipeOpacity = 0
             }
@@ -140,12 +161,11 @@ struct MainScene: View {
     private func addDieButton(dieType: DieType) -> some View {
         Button {
             VibrationManager.shared.vibrate()
-            skScene.addDie(dieType)
+            viewModel.skScene.addDie(dieType)
         } label: {
             Circle()
                 .foregroundColor(lightColor)
                 .frame(width: addDieButtonWidth, height: addDieButtonWidth)
-//                .shadow(radius: 1)
                 .overlay {
                     Text(dieType.name)
                         .font(.title3)
@@ -173,7 +193,7 @@ struct MainScene: View {
     
     private func updateSize(_ newSize: CGSize) {
         size = CGSize(width: newSize.width * 2, height: (newSize.height - trayHeight) * 2)
-        skScene.size = size
+        viewModel.skScene.size = size
     }
 }
 
@@ -184,6 +204,14 @@ extension MainScene: TrayDisplayDelegate {
     
     func dieNodesUpdated(dieNodes: [DieShapeNode]) {
         self.dieNodes = dieNodes
+    }
+    
+    func shook() {
+        if tutorialOpacity > 0 {
+            withAnimation(.easeInOut(duration: 0.1)) {
+                tutorialOpacity = 0
+            }
+        }
     }
 }
 
