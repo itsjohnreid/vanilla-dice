@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct MainApp: App {
     @StateObject var skinPreference = SkinPreference()
+    
     var body: some Scene {
         WindowGroup {
             NavigationView {

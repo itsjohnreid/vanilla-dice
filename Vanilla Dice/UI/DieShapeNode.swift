@@ -67,6 +67,9 @@ class DieShapeNode: SKShapeNode {
     
     func adjustForRotation() {
         guard let physicsBody else { return }
+        if physicsBody.angularVelocity > -0.2 && physicsBody.angularVelocity < 0.2 {
+            physicsBody.angularVelocity = 0
+        }
         if physicsBody.velocity != CGVector.zero,
            physicsBody.angularVelocity > 0.5 || physicsBody.angularVelocity < -0.5
         {
