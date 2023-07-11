@@ -35,6 +35,7 @@
 		52935BAE29F12E0B00EE98B0 /* DiceTraySKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceTraySKScene.swift; sourceTree = "<group>"; };
 		52935BB029F263EA00EE98B0 /* VibrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrationManager.swift; sourceTree = "<group>"; };
 		52935BB629F3D54000EE98B0 /* DieType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DieType.swift; sourceTree = "<group>"; };
+		52D09C842A591131008EC648 /* Vanilla-Dice-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Vanilla-Dice-Info.plist"; sourceTree = SOURCE_ROOT; };
 		52E8464529ED2936005A687F /* Vanilla Dice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Vanilla Dice.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52E8464829ED2936005A687F /* MainApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainApp.swift; sourceTree = "<group>"; };
 		52E8464A29ED2936005A687F /* MainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
@@ -86,6 +87,7 @@
 		52E8464729ED2936005A687F /* Vanilla Dice */ = {
 			isa = PBXGroup;
 			children = (
+				52D09C842A591131008EC648 /* Vanilla-Dice-Info.plist */,
 				523F83DD2A20DEE80099F01C /* Color+Utils.swift */,
 				52935BB629F3D54000EE98B0 /* DieType.swift */,
 				52E8464829ED2936005A687F /* MainApp.swift */,
@@ -326,6 +328,7 @@
 				DEVELOPMENT_TEAM = 9252DVNUTQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Vanilla-Dice-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Vanilla Dice";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -359,6 +362,7 @@
 				DEVELOPMENT_TEAM = 9252DVNUTQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Vanilla-Dice-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Vanilla Dice";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
