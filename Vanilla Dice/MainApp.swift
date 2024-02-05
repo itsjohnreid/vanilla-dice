@@ -13,14 +13,8 @@ struct MainApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                MainScene()
-                    .background {
-                        NavigationConfigurator { nc in
-                            nc.navigationBar.barTintColor = skinPreference.skin.darkColor
-                            nc.navigationBar.isTranslucent = false
-                        }
-                    }
+            NavigationStack {
+                    MainScene()
             }
             .environmentObject(skinPreference)
         }

@@ -9,23 +9,29 @@ import SwiftUI
 
 struct SkinCarousel: View {
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 32) {
-                SkinTile(.vanilla)
-                SkinTile(.forest)
-                SkinTile(.pastel)
-                SkinTile(.velvet)
+//        ScrollView(.horizontal, showsIndicators: false) {
+            VStack(spacing: 32) {
+                HStack(spacing: 32) {
+                    SkinTile(.vanilla)
+                    SkinTile(.forest)
+                    SkinTile(.fireball)
+                }
+                HStack(spacing: 32) {
+                    SkinTile(.pastel)
+                    SkinTile(.cosmic)
+                    SkinTile(.arcane)
+                }
             }
             .padding(.horizontal)
             .padding(.vertical, 16)
-        }
+//        }
     }
 }
 
 struct SkinTile: View {
     @EnvironmentObject var skinPreference: SkinPreference
     let skin: Skin
-    let size: CGSize = .init(width: 90, height: 160)
+    let size: CGSize = .init(width: 80, height: 140)
     let shadowSize: CGFloat = 10
     
     init(_ skin: Skin) {
@@ -45,9 +51,9 @@ struct SkinTile: View {
                         .cornerRadius(8)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 20)
-                    VStack {
+                    VStack(spacing: 4) {
                         ForEach(skin.diceColors, id: \.self) { color in
-                            RoundedRectangle(cornerRadius: 4)
+                            RoundedRectangle(cornerRadius: 20)
                                 .fill(Color(color))
                                 .frame(width: 24, height: 16)
                         }

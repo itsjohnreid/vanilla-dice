@@ -8,6 +8,7 @@
 import CoreMotion
 import SpriteKit
 import UIKit
+import SwiftUI
 
 class DiceTraySKScene: SKScene, SKPhysicsContactDelegate {
     private let motionManager = CMMotionManager()
@@ -18,10 +19,13 @@ class DiceTraySKScene: SKScene, SKPhysicsContactDelegate {
     private var spawnPoint: CGPoint {
         CGPoint(x: size.width / 2, y: size.height / 2)
     }
+    
+    @AppStorage("isShakeRollOn") private var isShakeRollOn = true
         
     var trayDisplayDelegate: TrayDisplayDelegate?
     
     private func detectShake() {
+        guard isShakeRollOn else { return }
         if let accelerometerData = motionManager.accelerometerData {
             let shakeThreshold: Double = 3
             let totalAcceleration = sqrt(pow(accelerometerData.acceleration.x, 2) + pow(accelerometerData.acceleration.y, 2) + pow(accelerometerData.acceleration.z, 2))

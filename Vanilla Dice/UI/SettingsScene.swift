@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsScene: View {
     @EnvironmentObject var skinPreference: SkinPreference
+    
     private var lightColor: Color {
         Color(skinPreference.skin.lightColor)
     }
@@ -16,57 +17,44 @@ struct SettingsScene: View {
         Color(skinPreference.skin.darkColor)
     }
     
-    @State private var isSoundOn = true
-    @State private var isVibrationOn = true
-    @State private var isTapRollOn = false
-    @State private var isShakeRollOn = true
-    @State private var isNumberSpinOn = true
-    @State private var isD99On = false
-    @State private var diceSizeModifier: Double = 1.0
+    @AppStorage("isSoundOn") private var isSoundOn = true
+    @AppStorage("isVibrationOn") private var isVibrationOn = true
+    @AppStorage("isShakeRollOn") private var isShakeRollOn = true
+    @AppStorage("diceSizeModifier") private var diceSizeModifier: Double = 1.0
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 32) {
-                Spacer(minLength: 32)
-                SkinCarousel()
-                freeSection
-                    .padding(.horizontal)
-                proSection
-                    .padding(.horizontal)
-                creditsSection
-                    .padding(.horizontal)
-                Spacer()
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 32) {
+                    SkinCarousel()
+                    optionsSection
+                        .padding(.horizontal)
+                    creditsSection
+                        .padding(.horizontal)
+                    Spacer()
+                }
+                .padding(.top, 16)
             }
-        }
-        .tint(darkColor)
-        .background(darkColor)
-        .preferredColorScheme(.dark)
-        .navigationTitle("Settings")
+            .tint(darkColor)
+            .background(darkColor)
+            .preferredColorScheme(.dark)
+            .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color(skinPreference.skin.darkColor), for: .navigationBar)
     }
     
-    var freeSection: some View {
-        VStack {
-            toggle(isOn: $isSoundOn, title: "Sounds")
-            toggle(isOn: $isVibrationOn, title: "Vibrations", isLast: true)
-        }
-        .padding(.vertical, 8)
-        .background(lightColor)
-        .cornerRadius(20)
-    }
-    
-    var proSection: some View {
+    var optionsSection: some View {
         VStack {
             diceSizeSlider
-            toggle(isOn: $isTapRollOn, title: "Tap to roll")
-            toggle(isOn: $isShakeRollOn, title: "Shake to roll")
-            toggle(isOn: $isNumberSpinOn, title: "Numbers spin")
-            toggle(isOn: $isD99On, title: "0-99 instead of 1-100", isLast: true)
+            toggle(isOn: $isSoundOn, title: "Sounds")
+            toggle(isOn: $isVibrationOn, title: "Vibrations")
+            toggle(isOn: $isShakeRollOn, title: "Shake to roll", isLast: true)
         }
         .padding(.vertical, 8)
         .background(lightColor)
         .cornerRadius(20)
         .overlay {
-            proOverlay
+            // Removed 'pro mode'
+//            proOverlay
         }
     }
     
@@ -112,7 +100,7 @@ struct SettingsScene: View {
                 Text("Dice size")
                     .fontWeight(.medium)
                     .foregroundColor(darkColor)
-                Slider(value: $diceSizeModifier, in: 0.7...1.4, step: 0.1)
+                Slider(value: $diceSizeModifier, in: 0.4...1.6, step: 0.2)
                     .padding(.horizontal)
             }
             .padding(.vertical, 4)
@@ -139,5 +127,6 @@ struct SettingsScene: View {
 struct SettingsScene_Previews: PreviewProvider {
     static var previews: some View {
         SettingsScene()
+            .environmentObject(SkinPreference())
     }
 }

@@ -18,7 +18,7 @@ class DieShapeNode: SKShapeNode {
     
     init(dieType: DieType, color: UIColor) {
         self.dieType = dieType
-        label = SKLabelNode(text: " " + dieType.name + " ")
+        label = SKLabelNode(text: " d" + dieType.name + " ")
         shadowShape = SKShapeNode()
         shadow = SKNode()
         self.color = color
@@ -46,9 +46,9 @@ class DieShapeNode: SKShapeNode {
         label.verticalAlignmentMode = .center
         label.horizontalAlignmentMode = .center
         label.fontName = "Avenir-Heavy"
-        label.fontSize = 72
+        label.fontSize = 72 * diceSizeModifier()
         label.fontColor = idealTextColor(for: color)
-        label.alpha = 0.2
+        label.alpha = 0.16
         addChild(label)
         
         // Set up shadow
@@ -74,7 +74,7 @@ class DieShapeNode: SKShapeNode {
            physicsBody.angularVelocity > 0.5 || physicsBody.angularVelocity < -0.5
         {
             if Date().timeIntervalSince(lastRollDate) > 0.05 {
-                label.alpha = 0.9
+                label.alpha = 0.8
                 label.text = randomNumber(range: dieType.range)
                 VibrationManager.shared.vibrate(style: .light, intensity: 0.75)
                 lastRollDate = Date()
@@ -102,6 +102,7 @@ class DieShapeNode: SKShapeNode {
         self.color = color
         fillColor = color
         strokeColor = color
+        label.fontColor = idealTextColor(for: color)
     }
     
     required init?(coder aDecoder: NSCoder) {

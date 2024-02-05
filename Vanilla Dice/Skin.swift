@@ -17,8 +17,10 @@ struct Skin: Equatable {
     enum Name: String, Codable {
         case vanilla
         case forest
+        case fireball
         case pastel
-        case velvet
+        case cosmic
+        case arcane
     }
 }
 
@@ -33,10 +35,14 @@ extension Skin {
             return .vanilla
         case Skin.Name.forest.rawValue:
             return .forest
+        case Skin.Name.fireball.rawValue:
+            return .fireball
         case Skin.Name.pastel.rawValue:
             return .pastel
-        case Skin.Name.velvet.rawValue:
-            return .velvet
+        case Skin.Name.cosmic.rawValue:
+            return .cosmic
+        case Skin.Name.arcane.rawValue:
+            return .arcane
         default:
             return .vanilla
         }
@@ -53,49 +59,73 @@ extension Skin {
     
     static let vanilla = Self(
         name: .vanilla,
-        fillColor: "FEFAE0", // Cornsilk
-        borderColor: "9A581F", // Dark brown
+        fillColor: "F2E6C8", // Pearl
+        borderColor: "844F20", // Russet
         diceColors: [
-            "364420", // Dark green
-            "747E4D", // Green
-            "DDA15E", // Beige
-            "C57A34"  // Caramel
+            "ACAC83", // Sage
+            "747E4D", // Reseda Green
+            "D79F5D", // Earth Yellow
+            "B77E44"  // Copper
         ]
     )
     
     static let forest = Self(
         name: .forest,
         fillColor: "8AB17D", // Olivine
-        borderColor: "264653", // Charcoal
+        borderColor: "23404B", // Charcoal
         diceColors: [
-            "287271", // Myrtle Green
-            "E9C46A", // Saffron
-            "F4A261", // Sandy Brown
-            "E76F51"  // Burnt Sienna
+            "89C7B9", // Tiffany Blue
+            "6AAFAA", // Verdigris
+            "4D8774", // Viridian
+            "276668"  // Caribbean Current
+        ]
+    )
+    
+    static let fireball = Self(
+        name: .fireball,
+        fillColor: "F1CF8C", // Sunset
+        borderColor: "C32424", // Fire Engine Red
+        diceColors: [
+            "FBAF37", // Orange
+            "F58518", // Tangerine
+            "EF6A0A", // Spanish Orange
+            "E34919"  // Flame
         ]
     )
     
     static let pastel = Self(
         name: .pastel,
-        fillColor: "F5DACF", // Pale Dogwood
-        borderColor: "F1807E", // Light Coral
+        fillColor: "F8EDEB", // Seashell
+        borderColor: "FF8785", // Light Red
         diceColors: [
-            "E4B262", // Earth Yellow
-            "EDA096", // Melon
-            "84A59D", // Cambridge Blue
-            "6C8980"  // Hooker's Green
+            "D0DCD5", // Platinum
+            "E7E4DC", // Alabaster
+            "FFD7BA", // Apricot
+            "FEC89A"  // Peach
         ]
     )
     
-    static let velvet = Self(
-        name: .velvet,
-        fillColor: "A7392E", // Auburn
-        borderColor: "48090B", // Black Bean
+    static let cosmic = Self(
+        name: .cosmic,
+        fillColor: "F8F9FA", // Seasalt
+        borderColor: "131516", // Night
         diceColors: [
-            "BF6535", // Brown Sugar
-            "E09F3E", // Hunyadi Yellow
-            "738C7E", // Reseda Green
-            "335C67"  // Dark Slate Gray
+            "ADB5BD", // French Gray
+            "7B838A", // Slate Gray
+            "495057", // Outer Space
+            "212529"  // Eerie Black
+        ]
+    )
+    
+    static let arcane = Self(
+        name: .arcane,
+        fillColor: "F9F8F8", // Seasalt
+        borderColor: "5A1664", // Palatinate
+        diceColors: [
+            "B391B0", // Lilac
+            "AA6DA3", // Sky magenta
+            "AE43B6", // Purpureus
+            "B118C8"  // Dark Violet
         ]
     )
 }

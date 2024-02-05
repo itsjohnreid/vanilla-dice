@@ -7,15 +7,20 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 class VibrationManager {
     static let shared = VibrationManager()
     var lastHeavyVibrationDate = Date()
     var lastLightVibrationDate = Date()
     
+    @AppStorage("isVibrationOn") private var isVibrationOn = true
+    
     private init() {}
     
     func vibrate(style: UIImpactFeedbackGenerator.FeedbackStyle = .heavy, intensity: CGFloat = 1) {
+        guard isVibrationOn else { return }
+        
         if style == .heavy {
             guard Date().timeIntervalSince(lastHeavyVibrationDate) > 0.05 else { return }
             lastHeavyVibrationDate = Date()

@@ -6,6 +6,7 @@
 //
 
 import CoreGraphics
+import Foundation
 
 enum DieType: String, CaseIterable, Identifiable {
     case d4
@@ -38,7 +39,7 @@ enum DieType: String, CaseIterable, Identifiable {
         }
     }
     
-    func path(radius: CGFloat = 120) -> CGPath {
+    func path(radius: CGFloat = 120 * diceSizeModifier()) -> CGPath {
         switch self {
         case .d4: return regularShapePath(sides: 3, radius: radius)
         case .d6: return regularShapePath(sides: 4, radius: radius)

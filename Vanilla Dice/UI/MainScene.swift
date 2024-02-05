@@ -21,6 +21,7 @@ struct MainScene: View {
     @State private var tutorialOpacity: Double = 1
     @State private var wipeOpacity: Double = 0
     @State private var rollTotal: Int = 0
+    @State private var hasShaken = false
     
     private var addDieButtonWidth: CGFloat {
         min(size.width / 16, 48)
@@ -88,8 +89,10 @@ struct MainScene: View {
             HStack(alignment: .bottom) {
                 settingsButton
                 Spacer()
-                rollTotalView
-                Spacer()
+                if hasShaken, dieNodes.count > 1 {
+                    rollTotalView
+                    Spacer()
+                }
                 refreshButton
             }
             .padding(8)
@@ -114,11 +117,12 @@ struct MainScene: View {
             UIImpactFeedbackGenerator(style: .soft).impactOccurred()
             wipeOpacity = 1
             viewModel.skScene.clearDice()
+            hasShaken = false
             withAnimation {
                 wipeOpacity = 0
             }
         } label: {
-            Image(systemName: "arrow.clockwise")
+            Image(systemName: "trash")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 32, height: 32)
@@ -130,7 +134,7 @@ struct MainScene: View {
     }
     
     private var rollTotalView: some View {
-        Text(String(rollTotal))
+        Text(String(rollTotal) + " total")
             .font(.body)
             .fontWeight(.semibold)
             .foregroundColor(darkColor)
@@ -175,18 +179,30 @@ struct MainScene: View {
                 }
         }
         .overlay(alignment: .bottom) {
-            if dieNodes.contains { $0.dieType == dieType } {
-                Circle()
-                    .frame(width: 20, height: 20)
-                    .foregroundColor(darkColor)
-                    .overlay {
-                        Text("\(dieNodes.filter { $0.dieType == dieType }.count)")
-                            .font(.footnote)
-                            .fontWeight(.semibold)
-                            .foregroundColor(lightColor)
-                            .fixedSize()
+            if dieNodes.contains(where: { $0.dieType == dieType }) {
+                Text("\(dieNodes.filter { $0.dieType == dieType }.count)")
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .foregroundColor(lightColor)
+                    .fixedSize()
+                    .padding(.horizontal, 5)
+                    .padding(.vertical, 2)
+                    .background {
+                        darkColor
                     }
-                    .offset(y: 12)
+                    .cornerRadius(20)
+                    .offset(y: 10)
+//                Circle()
+//                    .frame(width: 20, height: 20)
+//                    .foregroundColor(darkColor)
+//                    .overlay {
+//                        Text("\(dieNodes.filter { $0.dieType == dieType }.count)")
+//                            .font(.footnote)
+//                            .fontWeight(.semibold)
+//                            .foregroundColor(lightColor)
+//                            .fixedSize()
+//                    }
+//                    .offset(y: 12)
             }
         }
     }
@@ -207,6 +223,7 @@ extension MainScene: TrayDisplayDelegate {
     }
     
     func shook() {
+        hasShaken = true
         if tutorialOpacity > 0 {
             withAnimation(.easeInOut(duration: 0.1)) {
                 tutorialOpacity = 0
@@ -218,5 +235,6 @@ extension MainScene: TrayDisplayDelegate {
 struct MainScene_Previews: PreviewProvider {
     static var previews: some View {
         MainScene()
+            .environmentObject(SkinPreference())
     }
 }

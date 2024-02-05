@@ -25,8 +25,13 @@ func idealTextColor(for color: UIColor) -> UIColor {
     
     // Choose black or white text color based on the luminance value
     if luminance > 0.8 {
-        return UIColor.black
+        return UIColor.darkGray
     } else {
         return UIColor.white
     }
+}
+
+func diceSizeModifier() -> Double {
+    let size = UserDefaults.standard.double(forKey: "diceSizeModifier")
+    return size == 0 ? 1.0 : size
 }
