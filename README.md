@@ -1,10 +1,10 @@
 # Vanilla Dice 🎲
 
-A beautifully crafted dice rolling app built with SwiftUI, featuring multiple elegant themes to match your style.
+A 2D physics-based dice roller for D&D and table top games made with SwiftUI and SpriteKit.
 
-![Vanilla Dice Screenshot](Screenshots/screen1.jpg)
+<img src="Screenshots/screen1.jpg" width="300" alt="Vanilla Dice Screenshot">
 
-![Vanilla Dice Screenshot](Screenshots/screen2.jpg)
+<img src="Screenshots/screen2.jpg" width="300" alt="Vanilla Dice Screenshot">
 
 ## Features
 
