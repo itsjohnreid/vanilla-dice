@@ -52,10 +52,10 @@ struct SettingsScene: View {
         .padding(.vertical, 8)
         .background(lightColor)
         .cornerRadius(20)
-        .overlay {
-            // Removed 'pro mode'
+        // Removed 'pro mode'
+//        .overlay {
 //            proOverlay
-        }
+//        }
     }
     
     var proOverlay: some View {

@@ -31,7 +31,7 @@ struct MainScene: View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
                 spriteView
-                    .frame(width: geometry.size.width, height: geometry.size.height - trayHeight)
+                    .frame(width: abs(geometry.size.width), height: abs(geometry.size.height - trayHeight))
                 dicePalette
             }
             .onAppear {
@@ -145,7 +145,7 @@ struct MainScene: View {
     
     private var wipeOverlay: some View {
         Rectangle()
-            .frame(width: size.width, height: size.height)
+            .frame(width: abs(size.width), height: abs(size.height))
             .foregroundColor(darkColor)
             .opacity(wipeOpacity)
             .ignoresSafeArea()
@@ -192,17 +192,6 @@ struct MainScene: View {
                     }
                     .cornerRadius(20)
                     .offset(y: 10)
-//                Circle()
-//                    .frame(width: 20, height: 20)
-//                    .foregroundColor(darkColor)
-//                    .overlay {
-//                        Text("\(dieNodes.filter { $0.dieType == dieType }.count)")
-//                            .font(.footnote)
-//                            .fontWeight(.semibold)
-//                            .foregroundColor(lightColor)
-//                            .fixedSize()
-//                    }
-//                    .offset(y: 12)
             }
         }
     }

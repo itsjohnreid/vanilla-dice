@@ -17,6 +17,7 @@ struct MainApp: App {
                     MainScene()
             }
             .environmentObject(skinPreference)
+            .tint(.white)
         }
     }
 }

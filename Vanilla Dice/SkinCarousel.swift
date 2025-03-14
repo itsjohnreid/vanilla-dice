@@ -9,22 +9,20 @@ import SwiftUI
 
 struct SkinCarousel: View {
     var body: some View {
-//        ScrollView(.horizontal, showsIndicators: false) {
-            VStack(spacing: 32) {
-                HStack(spacing: 32) {
-                    SkinTile(.vanilla)
-                    SkinTile(.forest)
-                    SkinTile(.fireball)
-                }
-                HStack(spacing: 32) {
-                    SkinTile(.pastel)
-                    SkinTile(.cosmic)
-                    SkinTile(.arcane)
-                }
+        VStack(spacing: 32) {
+            HStack(spacing: 32) {
+                SkinTile(.vanilla)
+                SkinTile(.forest)
+                SkinTile(.fireball)
             }
-            .padding(.horizontal)
-            .padding(.vertical, 16)
-//        }
+            HStack(spacing: 32) {
+                SkinTile(.pastel)
+                SkinTile(.cosmic)
+                SkinTile(.arcane)
+            }
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 16)
     }
 }
 
@@ -61,7 +59,7 @@ struct SkinTile: View {
                     VStack {
                         Spacer()
                         Text(skin.name.rawValue)
-                            .font(.footnote)
+                             .font(.footnote)
                             .fontWeight(.medium)
                             .foregroundColor(Color(skin.lightColor))
                             .padding(2)
